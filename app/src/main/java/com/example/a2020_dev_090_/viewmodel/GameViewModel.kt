@@ -3,10 +3,10 @@ package com.example.a2020_dev_090_.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.a2020_dev_090_.model.Game
+import com.example.a2020_dev_090_.model.GameRepository
 import com.example.a2020_dev_090_.model.Player
 
-class GameViewModel(private val game: Game): ViewModel() {
+class GameViewModel(private val gameRepository: GameRepository): ViewModel() {
 
     val activePlayer : LiveData<Player>
         get() = mActivePlayer
@@ -18,20 +18,15 @@ class GameViewModel(private val game: Game): ViewModel() {
 
     fun playGame( x: Int,  y: Int)
     {
-        mActivePlayer.postValue(game.playGame(x,y))
+        mActivePlayer.postValue(gameRepository.playGame(x,y))
 
-    }
-
-    fun resetGame()
-    {
-        game.resetGame()
     }
 
     fun checkWiwnner()
     {
-        var winnerPlayer : Player? = game.checkWinner()
+        var winnerPlayer : Player? = gameRepository.checkWinner()
 
-        if(winnerPlayer == null && game.isDraw())
+        if(winnerPlayer == null && gameRepository.isDraw())
         {
             mGameResult.postValue("Draw")
             return
@@ -42,5 +37,14 @@ class GameViewModel(private val game: Game): ViewModel() {
             mGameResult.postValue(winnerPlayer.name)
             return
         }
+    }
+
+    fun resetGame()
+    {
+        gameRepository.resetGame()
+    }
+
+    fun switchPlayer() {
+        gameRepository.switchPlayer()
     }
 }

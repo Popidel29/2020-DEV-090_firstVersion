@@ -22,13 +22,10 @@ class MainCoroutinesRule : TestRule, TestCoroutineScope by TestCoroutineScope() 
 
             @Throws(Throwable::class)
             override fun evaluate() {
-
                 Dispatchers.setMain(dispatcher)
-
                 // everything above this happens before the test
                 base.evaluate()
                 // everything below this happens after the test
-
                 cleanupTestCoroutines()
                 Dispatchers.resetMain()
             }

@@ -2,14 +2,14 @@ package com.example.a2020_dev_090_.model
 
 import com.example.a2020_dev_090_.R
 
-class Game(playerOneName : String, playerTwoName: String) {
+class GameRepository(playerOneName : String, playerTwoName: String) {
 
     private val playerOne = Player(playerOneName,"X", R.color.green)
     private var playerTwo =  Player(playerTwoName,"O", R.color.red)
     private var activePlayer = playerOne
     private var moveCount = 0
 
-    var board = Array(3){Array(3){Player("","", R.color.white)} }
+    private var board = Array(3){Array(3){Player("","", R.color.white)} }
 
     fun resetGame()
     {
@@ -30,13 +30,13 @@ class Game(playerOneName : String, playerTwoName: String) {
         return  activePlayer
     }
 
-    private fun switchPlayer(){
-        if(activePlayer == playerOne){
-            activePlayer = playerTwo
-        }else{
-            activePlayer = playerOne
-        }
-    }
+     fun switchPlayer(){
+         activePlayer = if(activePlayer == playerOne){
+             playerTwo
+         }else{
+             playerOne
+         }
+     }
 
     fun isDraw() : Boolean
     {
@@ -46,7 +46,6 @@ class Game(playerOneName : String, playerTwoName: String) {
     fun checkWinner() : Player? {
 
         var winner : Player ?= null
-
         //check row
         for(i in 0..2){
             if(board[i][0] == board[i][1] && board[i][1] == board[i][2]){
@@ -54,7 +53,6 @@ class Game(playerOneName : String, playerTwoName: String) {
                 break
             }
         }
-
         //check col
         for(i in 0..2){
             if(board[0][i] == board[1][i] && board[1][i] == board[2][i]){
@@ -62,7 +60,6 @@ class Game(playerOneName : String, playerTwoName: String) {
                 break
             }
         }
-
         //check diagonal
         for(i in 1..2){
             if(board[0][0] != board[i][i])
@@ -82,10 +79,7 @@ class Game(playerOneName : String, playerTwoName: String) {
                 winner = board[0][2]
             }
         }
-
         switchPlayer()
-
         return  winner
     }
-
 }

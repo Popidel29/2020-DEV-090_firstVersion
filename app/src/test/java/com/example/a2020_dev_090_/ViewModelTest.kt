@@ -2,7 +2,7 @@ package com.example.a2020_dev_090_
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.example.a2020_dev_090_.model.Game
+import com.example.a2020_dev_090_.model.GameRepository
 import com.example.a2020_dev_090_.model.Player
 import com.example.a2020_dev_090_.viewmodel.GameViewModel
 import io.mockk.MockKAnnotations
@@ -27,19 +27,19 @@ class ViewModelTest {
     private lateinit var gameViewModel: GameViewModel
 
     @MockK
-    private lateinit var game: Game
+    private lateinit var gameRepository: GameRepository
 
     @SpyK
-    var activePlayerResponseObserver = Observer<Player> {}
+    val activePlayerResponseObserver = Observer<Player> {}
 
     @SpyK
-    var gameResultResponseObserver = Observer<String> {}
+    val gameResultResponseObserver = Observer<String> {}
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
 
-        gameViewModel = spyk((GameViewModel(game)))
+        gameViewModel = spyk((GameViewModel(gameRepository)))
         gameViewModel.activePlayer.observeForever(activePlayerResponseObserver)
         gameViewModel.gameResult.observeForever(gameResultResponseObserver)
     }
@@ -52,7 +52,7 @@ class ViewModelTest {
 
         //given
         coEvery {
-            game.playGame(0,1)
+            gameRepository.playGame(0,1)
         } returns result
 
         //when
@@ -70,7 +70,7 @@ class ViewModelTest {
 
         //given
         coEvery {
-            game.checkWinner()
+            gameRepository.checkWinner()
         } returns result
 
         //when
@@ -83,15 +83,15 @@ class ViewModelTest {
     @Test
     fun `Testing Draw Result`() {
 
-        var result = "Draw"
+        val result = "Draw"
 
         //given
         coEvery {
-            game.checkWinner()
+            gameRepository.checkWinner()
         } returns null
 
         coEvery {
-            game.isDraw()
+            gameRepository.isDraw()
         } returns true
 
         //when
@@ -100,8 +100,4 @@ class ViewModelTest {
         //Then
         verify { gameResultResponseObserver.onChanged(result)}
     }
-
-
-
-
 }
