@@ -1,4 +1,4 @@
-package com.example.a2020_dev_090
+package com.example.a2020_dev_090_
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

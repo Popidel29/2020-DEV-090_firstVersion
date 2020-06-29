@@ -1,10 +1,10 @@
-package com.example.a2020_dev_090.viewmodel
+package com.example.a2020_dev_090_.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.a2020_dev_090.model.Game
-import com.example.a2020_dev_090.model.Player
+import com.example.a2020_dev_090_.model.Game
+import com.example.a2020_dev_090_.model.Player
 
 class GameViewModel(private val game: Game): ViewModel() {
 
@@ -13,13 +13,18 @@ class GameViewModel(private val game: Game): ViewModel() {
     private var mActivePlayer = MutableLiveData<Player>()
 
     val  gameResult : LiveData<String>
-        get() = mgameResult
-    private var mgameResult = MutableLiveData<String>()
+        get() = mGameResult
+    private var mGameResult = MutableLiveData<String>()
 
     fun playGame( x: Int,  y: Int)
     {
         mActivePlayer.postValue(game.playGame(x,y))
 
+    }
+
+    fun resetGame()
+    {
+        game.resetGame()
     }
 
     fun checkWiwnner()
@@ -28,13 +33,13 @@ class GameViewModel(private val game: Game): ViewModel() {
 
         if(winnerPlayer == null && game.isDraw())
         {
-            mgameResult.postValue("Draw")
+            mGameResult.postValue("Draw")
             return
         }
 
         if(winnerPlayer!= null)
         {
-            mgameResult.postValue(winnerPlayer.name)
+            mGameResult.postValue(winnerPlayer.name)
             return
         }
     }

@@ -1,10 +1,10 @@
-package com.example.a2020_dev_090
+package com.example.a2020_dev_090_
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.example.a2020_dev_090.model.Game
-import com.example.a2020_dev_090.model.Player
-import com.example.a2020_dev_090.viewmodel.GameViewModel
+import com.example.a2020_dev_090_.model.Game
+import com.example.a2020_dev_090_.model.Player
+import com.example.a2020_dev_090_.viewmodel.GameViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK

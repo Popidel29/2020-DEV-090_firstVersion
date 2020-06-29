@@ -1,6 +1,6 @@
-package com.example.a2020_dev_090.model
+package com.example.a2020_dev_090_.model
 
-import com.example.a2020_dev_090.R
+import com.example.a2020_dev_090_.R
 
 class Game(playerOneName : String, playerTwoName: String) {
 
@@ -10,6 +10,13 @@ class Game(playerOneName : String, playerTwoName: String) {
     private var moveCount = 0
 
     var board = Array(3){Array(3){Player("","", R.color.white)} }
+
+    fun resetGame()
+    {
+        activePlayer = playerOne
+        board = Array(3){Array(3){Player("","", R.color.white)} }
+        moveCount = 0
+    }
 
     fun playGame( x : Int,  y: Int) : Player?
     {
